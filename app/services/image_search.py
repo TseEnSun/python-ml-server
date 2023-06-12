@@ -3,6 +3,7 @@ import clip # type: ignore
 from glob import glob
 from PIL import Image
 from PIL.Image import Image as ImageType
+from app.log import logger
 
 
 class ImageSearcher():
@@ -10,11 +11,17 @@ class ImageSearcher():
     def __init__(
         self,
         model_name: str = "ViT-B/32",
-        image_dir: str = "./val2014"
+        image_dir: str = "/app/services/val2014"
     ):
+        logger.info('Loading images...')
+        filepaths = glob(f'{image_dir}/*.jpg')
+        logger.info(f'Found {len(filepaths)} images')
+
+        logger.info('Loading CLIP model...')
         device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model, self.preprocess = clip.load(model_name, device=device)
-        filepaths = glob(f'{image_dir}/*.jpg')
+        
+        logger.info('Loading image vectors...')
         self.image_vectors = torch.cat(
             [self.get_vector_for_image(Image.open(filepath)) for filepath in filepaths]
         )

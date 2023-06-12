@@ -7,6 +7,8 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "Sticker Search"
     API_PATH: str = "/sticker-search"
     API_V1_STR: str = f"{API_PATH}/v1"
+    LOG_LEVEL: str = "INFO"
+    LOG_FORMAT: str = "%(levelprefix)s | %(asctime)s | %(message)s"
     
     POSTGRES_SERVER: str
     POSTGRES_USER: str
