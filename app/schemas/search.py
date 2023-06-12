@@ -24,7 +24,7 @@ class SearchRequest(BaseModel):
 
 
 class SearchResponse(SearchRequest):
-    search_uuid: UUID4
+    search_uuid: str
     search_result: List[str]
 
 

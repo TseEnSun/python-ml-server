@@ -23,12 +23,12 @@ def search(
     search_obj = schemas.SearchCreate(
         search_term=search_request.search_term,
         search_result="|".join([str(x) for x in search_result]),
-        search_user=current_user.email
+        search_user=current_user.email,
     )
     search_in_db = crud.search.create(db, obj_in=search_obj)
     
     return {
         "search_uuid": search_in_db.search_uuid,
         "search_term": search_in_db.search_term,
-        "search_result": search_in_db.search_result
+        "search_result": search_in_db.search_result.split("|"),
     }

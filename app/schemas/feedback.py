@@ -5,17 +5,19 @@ from pydantic import BaseModel, EmailStr, UUID4
 
 class FeedbackBase(BaseModel):
     target_search_term: str
-    target_search_result: List[str]
+    target_search_result: str
     feed_back_user: EmailStr
 
 
 class FeedbackCreate(FeedbackBase):
-    pass
+    target_search_uuid: UUID4
+    target_search_result: str
+    feed_back_user: EmailStr
 
 
 class FeedbackUpdate(FeedbackBase):
     target_search_uuid: UUID4
-    target_search_result: List[str]
+    target_search_result: str
     feed_back_user: EmailStr
 
 

@@ -43,7 +43,10 @@ class ImageSearcher():
 class DummyImageSearcher():
 
     def search(self, text: str):
-        return torch.randint(327, (10,))
+        result = []
+        for i in range(10):
+            result.append((hash(text) % 328 + i*32) % 328)
+        return torch.IntTensor(result)
 
 # searcher = ImageSearcher()
 searcher = DummyImageSearcher()

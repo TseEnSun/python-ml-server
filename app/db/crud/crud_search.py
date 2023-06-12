@@ -1,3 +1,4 @@
+from uuid import uuid4
 from sqlalchemy.orm import Session
 from typing import Optional
 from datetime import datetime
@@ -38,5 +39,16 @@ class CRUDSearch(CRUDBase[Search, SearchCreate, SearchCreate]):
             query = query.filter(Search.created_at <= end_date)
         return query.count()
 
+    def create(self, db: Session, *, obj_in: SearchCreate) -> Search:
+        db_obj = Search(
+            search_uuid=str(uuid4()),
+            search_term=obj_in.search_term,
+            search_result=obj_in.search_result,
+            search_user=obj_in.search_user
+        )
+        db.add(db_obj)
+        db.commit()
+        db.refresh(db_obj)
+        return db_obj
 
 search = CRUDSearch(Search)

@@ -37,8 +37,9 @@ def receive_feedback(
 
     feedback_obj = schemas.FeedbackCreate(
         target_search_term=search_in_db.search_term,
-        target_search_result=feedback_request.not_good_result,
-        feed_back_user=current_user.email
+        target_search_result="|".join(feedback_request.not_good_result),
+        feed_back_user=current_user.email,
+        target_search_uuid=feedback_request.target_search_uuid
     )
     feedback_in_db = crud.feedback.create(db, obj_in=feedback_obj)
     return {

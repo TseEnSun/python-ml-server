@@ -31,7 +31,7 @@ def report(
     )
     not_good_result: Set[str] = set()
     for feedback in feedback_in_db:
-        not_good_result.update(feedback.target_search_result)
+        not_good_result.update(feedback.target_search_result.split("|"))
 
     report = schemas.ReportResponse(
         search_term=report_request.search_term,
