@@ -22,7 +22,7 @@ def search(
     search_result = searcher.search(search_request.search_term).tolist()
     search_obj = schemas.SearchCreate(
         search_term=search_request.search_term,
-        search_result=search_result,
+        search_result="|".join([str(x) for x in search_result]),
         search_user=current_user.email
     )
     search_in_db = crud.search.create(db, obj_in=search_obj)

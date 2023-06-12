@@ -29,7 +29,7 @@ def receive_feedback(
         }
     if not set(
         feedback_request.not_good_result
-    ).issubset(set(search_in_db.search_result)):
+    ).issubset(set(search_in_db.search_result.split("|"))):
         return {
             "success": False,
             "message": "Not good result not in search result"

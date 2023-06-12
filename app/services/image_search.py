@@ -40,4 +40,11 @@ class ImageSearcher():
     def get_vector_for_image(self, image: ImageType):
         return self.model.encode_image(self.preprocess(image).unsqueeze(0))
 
-searcher = ImageSearcher()
+class DummyImageSearcher():
+
+    def search(self, text: str):
+        return torch.randint(327, (10,))
+
+# searcher = ImageSearcher()
+searcher = DummyImageSearcher()
+

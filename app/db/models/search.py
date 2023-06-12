@@ -11,6 +11,6 @@ class Search(Base):
     id = Column(Integer, primary_key=True)
     search_uuid = Column(String, index=True, unique=True, default=uuid4())
     search_term = Column(String, index=True)
-    search_result = Column(type_=ARRAY(String, dimensions=10), nullable=False)
+    search_result = Column(String, nullable=False)
     search_user = Column(String, nullable=False, index=True)
     created_at = Column(DateTime, default=datetime.utcnow)

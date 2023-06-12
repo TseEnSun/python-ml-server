@@ -4,7 +4,7 @@ from pydantic import BaseModel, EmailStr, UUID4
 
 class SearchBase(BaseModel):
     search_term: str
-    search_result: List[str]
+    search_result: str
     search_user: EmailStr
 
 

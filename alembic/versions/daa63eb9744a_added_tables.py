@@ -22,7 +22,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('target_search_uuid', sa.Integer(), nullable=True),
     sa.Column('target_search_term', sa.String(), nullable=True),
-    sa.Column('target_search_result', sa.ARRAY(sa.String()), nullable=False),
+    sa.Column('target_search_result', sa.String(), nullable=False),
     sa.Column('feed_back_user', sa.String(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
@@ -35,7 +35,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('search_uuid', sa.String(), nullable=True),
     sa.Column('search_term', sa.String(), nullable=True),
-    sa.Column('search_result', postgresql.ARRAY(sa.String(), dimensions=10), nullable=False),
+    sa.Column('search_result', sa.String(), nullable=False),
     sa.Column('search_user', sa.String(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')

@@ -91,7 +91,7 @@ def get_user_by_header(
 
 
 def get_active_user_by_header(
-    current_user: models.User = Depends(api_key_header),
+    current_user: models.User = Depends(get_user_by_header),
 ) -> models.User:
     if not crud.user.is_active(current_user):
         raise HTTPException(status_code=400, detail="Inactive user")
@@ -99,7 +99,7 @@ def get_active_user_by_header(
 
 
 def get_active_superuser_by_header(
-    current_user: models.User = Depends(api_key_header),
+    current_user: models.User = Depends(get_user_by_header),
 ) -> models.User:
     if not crud.user.is_superuser(current_user):
         raise HTTPException(
