@@ -35,4 +35,7 @@ But I still need to run it on my machine. Thus, I created a dummy search without
 
 * Deep dive into ImageSearch which cost too much mempry
   * Memory increasing when generating image_vectors (15G~)
+    * Use no_grad() to save memory
+
+* Refind the search result encode method storing in DB.
   

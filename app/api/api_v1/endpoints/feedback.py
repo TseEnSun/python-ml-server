@@ -27,6 +27,7 @@ def receive_feedback(
             "success": False,
             "message": "Search not found"
         }
+    # check if the not good result is in the search result
     if not set(
         feedback_request.not_good_result
     ).issubset(set(search_in_db.search_result.split("|"))):
