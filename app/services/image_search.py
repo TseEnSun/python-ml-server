@@ -29,17 +29,19 @@ class ImageSearcher():
         self.image_vectors /= self.image_vectors.norm(dim=-1,keepdim=True)
 
 
-    def _encode_text(self, text: str):
-        return self.model.encode_text(clip.tokenize(text))
-
-
-    def search(self, text: str):
-        scores = self.image_vectors @ self._encode_text(text).t()
-        return scores.squeeze().argsort(descending=True)[:10]
-
+    def get_vector_for_text(self, text: str):
+        with torch.no_grad():
+            vector = self.model.encode_text(clip.tokenize(text))
+        return vector
 
     def get_vector_for_image(self, image: ImageType):
-        return self.model.encode_image(self.preprocess(image).unsqueeze(0))
+        with torch.no_grad():
+            vector = self.model.encode_image(self.preprocess(image).unsqueeze(0))
+        return vector
+    
+    def search(self, text: str):
+        scores = self.image_vectors @ self.get_vector_for_text(text).t()
+        return scores.squeeze().argsort(descending=True)[:10]
 
 class DummyImageSearcher():
 
@@ -48,6 +50,6 @@ class DummyImageSearcher():
         for i in range(10):
             result.append((hash(text) % 328 + i*32) % 328)
         return torch.IntTensor(result)
-
-# searcher = ImageSearcher()
-searcher = DummyImageSearcher()
+    
+searcher = ImageSearcher()
+# searcher = DummyImageSearcher()
